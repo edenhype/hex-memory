@@ -1,0 +1,73 @@
+@import '../variables';
+
+
+.hex-row-container {
+  display: block;
+  margin: 0 auto ($hex-width * -1) auto; 
+  overflow: hidden;
+
+  direction: ltr;
+  &.reverse-direction {direction: rtl}
+
+  &.all-correct .hex-container:not(.padding-hex) .outer-hex .inner-hex .inner-hex{
+    background: #185;
+  }
+}
+
+.hex-container {
+  display: inline-block;
+  margin: 0 ($hex-width / 10);
+  width: $hex-width;
+  font-size: 200%;
+  font-weight: bold;
+
+  .outer-hex {
+    transform: rotate(120deg);
+    width: $hex-width;
+    height: ($hex-width *2);
+    overflow: hidden;
+    visibility: hidden;
+
+    &:hover {
+      cursor: pointer;
+      
+      .inner-hex .inner-hex {
+        background: $hex-bg-hover;
+      }
+    }
+
+    .inner-hex {
+      transform: rotate(-60deg);
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      
+      .inner-hex {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: visible;
+        background: $hex-bg;
+      }
+    }
+  }
+
+  &.clicked-hex .outer-hex .inner-hex .inner-hex {
+    background: $hex-bg-clicked;
+  }
+
+  &.padding-hex .outer-hex .inner-hex .inner-hex{
+    background: none;
+    cursor: initial;
+  }
+
+  &.wrong-hex .outer-hex .inner-hex .inner-hex{
+    animation: wrong-hex-animation 200ms infinite
+  }
+
+  @keyframes wrong-hex-animation {
+    0%, 49% {background: none;}
+    50%, 100% {background: #f00;}
+  }
+}
